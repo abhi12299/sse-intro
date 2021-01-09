@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>SSE App</title>
+</head>
+
+<body>
+  <p>Home page</p>
+
+  <button onclick="generateEvent()">Generate Event</button>
+  <script>
+    const eventSource = new EventSource('/events')
+    eventSource.onmessage = event => {
+      console.log('Received event', event)
+    }
+    eventSource.addEventListener('alert', event => {
+      console.log('Alert received', event)
+    })
+    eventSource.addEventListener('join', event => {
+      console.log('Join received', event)
+    })
+
+    async function generateEvent() {
+      try {
+        const response = await fetch('/generate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            data: {
+              nested: 'here'
+            },
+            type: 'alert'
+          })
+        })
+        const json = await response.json()
+        console.log(json)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  </script>
+
+</body>
+
+</html>
