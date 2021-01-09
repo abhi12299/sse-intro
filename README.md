@@ -1,4 +1,8 @@
 ## Server Sent Events Example
+Read tutorial [here](https://iabhishek.dev/post/an-intro-to-server-sent-events)
+<hr />
+
+### Setup
 
 ```bash
 cd sse-intro/
